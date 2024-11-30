@@ -1,0 +1,12 @@
+[submodule "submodules/pynari"]
+	path = submodules/pynari
+	url = https://github.com/ingowald/pynari
+[submodule "submodules/barney"]
+	path = submodules/barney
+	url = https://github.com/ingowald/barney
+[submodule "submodules/ANARI-SDK"]
+	path = submodules/ANARI-SDK
+	url = https://github.com/KhronosGroup/ANARI-SDK
+[submodule "submodules/owl"]
+	path = submodules/owl
+	url = https://github.com/owl-project/owl
