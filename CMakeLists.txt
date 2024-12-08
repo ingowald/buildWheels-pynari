@@ -41,6 +41,7 @@ if (SAUCY)
 else()
   set(OptiX_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/nvidia/)
 endif()
+set(OptiX_ROOT_DIR ${OptiX_INSTALL_DIR})
 add_subdirectory(submodules/owl EXCLUDE_FROM_ALL)
 
 # ==================================================================
