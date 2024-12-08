@@ -1,7 +1,7 @@
 from skbuild import setup  # This line replaces 'from setuptools import setup'
 setup(
     name="pynari",
-    version="1.0.20",
+    version="1.0.21",
     description="ANARI Python Bindings",
     author='Ingo Wald',
 #    license="MIT",
