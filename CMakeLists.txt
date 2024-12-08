@@ -30,7 +30,11 @@ set(CMAKE_BUILD_TYPE Release)
 # ==================================================================
 # Build ***OWL***, using fixed, known version of optix
 # ==================================================================
-set(OWL_STATIC_CUDA ON)
+add_library(cuda_static_stub INTERFACE #STATIC
+#  cuda_static_stub.cpp
+)
+target_compile_definitions(cuda_static_stub INTERFACE -DOWL_CUDA_DRIVER_STATIC=1)
+set(OWL_CUDA_STATIC cuda_static_stub)
 set(OptiX_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/optix/)
 add_subdirectory(submodules/owl EXCLUDE_FROM_ALL)
 
@@ -71,7 +75,10 @@ add_subdirectory(submodules/pynari)# EXCLUDE_FROM_ALL)
 
 message("ROOT PROJECT_BINARY_DIR ${PROJECT_BINARY_DIR} ")
 
-install(TARGETS pynari LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/pynari)
+#install(TARGETS pynari LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/pynari)
+#install(TARGETS pynari LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/)
+install(TARGETS pynari LIBRARY DESTINATION pynari)
+
 #${PROJECT_BINARY_DIR}/../cmake_install/pynari)
 #install(pynari)a
 
@@ -99,6 +106,24 @@ install(TARGETS pynari LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/pynari)
 #  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}/pynari
 #  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/pynari
 #)
+
+
+install(
+  TARGETS pynari
+  LIBRARY
+  DESTINATION pynari
+)
+
+# installs our package's main '__init__.py' file in
+# <install>/pyquiri/__init__.py, so the buildwheel tool will properly
+# recognize this pyquiri/ dir as a buildable and installable package
+install(
+  FILES src/__init__.py
+  # where to put it - we want this in <install>/pyquiri
+  # $(install_dir)/<packagename(=pyquiri)>/__init__.py
+  DESTINATION pynari
+  )
+
 
 
 
