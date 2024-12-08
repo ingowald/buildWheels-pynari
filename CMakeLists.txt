@@ -19,6 +19,7 @@ set(CMAKE_CUDA_ARCHITECTURES ${PYWHEEL_CUDA_ARCHITECTURES})
 set(CMAKE_BUILD_PARALLEL_LEVEL 8)
 set(CMAKE_BUILD_TYPE Release)
 
+option(SAUCY "Secret-Sauce!?" OFF)
 #set(CMAKE_INSTALL_RPATH $ORIGIN)
 #set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
 #set(CMAKE_INSTALL_NAME_DIR "${RPATHS}")
@@ -35,7 +36,11 @@ add_library(cuda_static_stub INTERFACE #STATIC
 )
 target_compile_definitions(cuda_static_stub INTERFACE -DOWL_CUDA_DRIVER_STATIC=1)
 set(OWL_CUDA_STATIC cuda_static_stub)
-set(OptiX_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/optix/)
+if (SAUCY)
+  set(OptiX_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/optix/)
+else()
+  set(OptiX_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/nvidia/)
+endif()
 add_subdirectory(submodules/owl EXCLUDE_FROM_ALL)
 
 # ==================================================================

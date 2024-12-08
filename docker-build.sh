@@ -12,6 +12,7 @@ export PATH=/usr/local/cuda/bin/:$PATH
 
 export OLD_PATH=$PATH
 cd /io
+rm -f dist/*whl wheelhouse/*whl
 for f in cp38 cp39 cp310 cp311 cp312 cp313 ; do
     echo "== building wheel for $f"
     export PATH=/opt/python/$f-$f/bin/:$OLD_PATH
@@ -19,5 +20,11 @@ for f in cp38 cp39 cp310 cp311 cp312 cp313 ; do
     pip3 install scikit-build wheel twine
     python3 setup.py bdist_wheel
 done
+
+for f in `ls dist/*whl`; do
+    auditwheel repair $f
+done
+python3 -m twine upload -r pypi wheelhouse/*
+
 
 
